@@ -8,6 +8,17 @@ function showElementById(elementID) {
     const element = document.getElementById(elementID);
     element.classList.remove('hidden')
 }
+
+// add color in alphabet
+function addBackgroundColor(elementID) {
+    const element = document.getElementById(elementID)
+    element.classList.add('bg-amber-400');
+}
+function removeBackgroundColor(elementID) {
+    const element = document.getElementById(elementID)
+    element.classList.remove('bg-amber-400');
+}
+
 // get random alphabet
 function getARandomAlphabet() {
     // create alphabet array
@@ -21,8 +32,4 @@ function getARandomAlphabet() {
     const alphabet = alphabets[index];
     return alphabet;
 }   
-// add color in alphabet
-function addBackgroundColor (elementID){
-    const element = document.getElementById(elementID)
-    element.classList.add('bg-amber-400');
-}
+
