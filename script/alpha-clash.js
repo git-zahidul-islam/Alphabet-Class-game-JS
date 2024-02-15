@@ -14,6 +14,12 @@ function play() {
 function handelKeyboardKeyupEvents(event) {
     const playerPressedShow = event.key;
     const playerPressed = playerPressedShow.toLocaleLowerCase()
+    console.log('player pressed',playerPressed);
+
+    // game over 
+    if (playerPressed === 'escape'){
+        gameOver()
+    }
 
     // display show expected word
     const displayShow = document.getElementById('display-show');
@@ -22,38 +28,74 @@ function handelKeyboardKeyupEvents(event) {
 
     // compare the code 
     if (playerPressed === expectedAlphabet) {
-        // current score get from score span 
-        const currentScoreElement = document.getElementById('current-score');
-        const currentScoreText = currentScoreElement.innerText;
-        const currentScore = parseInt(currentScoreText);
-        // increase score using 1+ 
-        const newScore = currentScore + 1;
-        // display score
-        currentScoreElement.innerText = newScore;
-        // restart the game 
-        removeBackgroundColor(expectedAlphabet);
+        const currentScore = getTextElementValueById('current-score');
+        const updatedScore = currentScore + 1;
+        setTextElementValueById('current-score', updatedScore);
         continueGame()
+        // --------------------------------
+        // another systems
+        // // current score get from score span 
+        // const currentScoreElement = document.getElementById('current-score');
+        // const currentScoreText = currentScoreElement.innerText;
+        // const currentScore = parseInt(currentScoreText);
+        // // increase score using 1+ 
+        // const newScore = currentScore + 1;
+        // // display score
+        // currentScoreElement.innerText = newScore;
+        // // restart the game 
+        removeBackgroundColor(expectedAlphabet);
+        // 
+
+        // update systems 
+
+
     }
     else {
         console.log('dhur miya wrong type')
+        const currentLife = getTextElementValueById('current-life');
+        const updateLife = currentLife - 1;
+        setTextElementValueById('current-life', updateLife);
+
+        if (updateLife === 0) {
+            gameOver()
+        }
+
+        // ----------------------
+        // another system
+        // // step 1: current life line 
+        // const currentLifeElement = document.getElementById('current-life');
+        // const currentLifeText = currentLifeElement.innerText;
+        // const currentLife = parseInt(currentLifeText);
+        // // step 2: decrease life
+        // const newLife = currentLife - 1;
+        // // step 3 : display the value
+        // currentLifeElement.innerText = newLife;
+
+        // update systems
+
     }
 }
 document.addEventListener('keyup', handelKeyboardKeyupEvents)
 
 function continueGame() {
     const alphabet = getARandomAlphabet()
-    // console.log('your alphabet', alphabet);
-
     // show in the display
     const displayShow = document.getElementById('display-show');
     displayShow.innerText = alphabet;
     // color added
     addBackgroundColor(alphabet);
+    // removeBackgroundColor(alphabet);
 }
 
 // much efficiency
 function play() {
+    // hide everything 
     hideElementByIdd('home-screen');
+    hideElementByIdd('final-score');
     showElementById('play-ground');
+    // reset score 
+    setTextElementValueById('current-life', 5)
+    setTextElementValueById('current-score', 0)
+
     continueGame();
 }
